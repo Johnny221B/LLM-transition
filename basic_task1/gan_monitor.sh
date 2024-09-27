@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH -N 1                # 1 个节点
-#SBATCH -n 1                # 1 个任务
-#SBATCH -c 4                # 4 个 CPU 核心
-#SBATCH -p a100-gpu        # 分配到 volta-gpu 分区
-#SBATCH -t 12:00:00          # 最大运行时间为 1 小时
-#SBATCH --mem=5g            # 分配 5GB 内存
-#SBATCH --qos=gpu_access    # 访问 GPU 的权限
-#SBATCH --gres=gpu:1        # 请求 1 个 GPU
+#SBATCH -N 1                
+#SBATCH -n 1                
+#SBATCH -c 4                
+#SBATCH -p a100-gpu       
+#SBATCH -t 12:00:00
+#SBATCH --mem=5g            
+#SBATCH --qos=gpu_access   
+#SBATCH --gres=gpu:1       
 
 # 清除已有模块加载，防止冲突
 module purge
