@@ -5,8 +5,9 @@ import torch.optim as optim
 import torch.nn as nn
 import wandb
 import time
+import GPUtil
 
-wandb.init(project="cifar100-resnet50")
+wandb.init(project="gpu-usage-resnet",name="resnet50")
 
 transform_train = transforms.Compose([
     transforms.RandomResizedCrop(224),
@@ -33,10 +34,11 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda:6" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 num_epochs = 50
+gpu_usages = []  
 start_time = time.time()
 
 for epoch in range(num_epochs):
@@ -60,7 +62,13 @@ for epoch in range(num_epochs):
             running_loss = 0.0
             wandb.log({"epoch": epoch + 1, "batch": i + 1, "loss": avg_loss})
 
-    scheduler.step() 
+            
+            gpus = GPUtil.getGPUs()
+            gpu_usage = gpus[0].load * 100  
+            gpu_usages.append(gpu_usage)  
+            wandb.log({"GPU Usage (%)": gpu_usage})
+
+    scheduler.step()
 
     model.eval()
     val_loss = 0.0
@@ -82,13 +90,12 @@ for epoch in range(num_epochs):
     print(f'Validation Loss: {val_loss:.3f}, Validation Accuracy: {val_accuracy:.2f}%')
     wandb.log({"val_loss": val_loss, "val_accuracy": val_accuracy})
 
-print('Finished Training')
-
 end_time = time.time()
 training_time = end_time - start_time
+average_gpu_usage = sum(gpu_usages) / len(gpu_usages) if gpu_usages else 0
+print('Average GPU Usage: {:.2f}%'.format(average_gpu_usage))
 print('Training Time: {:.2f} seconds'.format(training_time))
-
-wandb.log({"training_time": training_time})
+wandb.log({"training_time": training_time, "average_gpu_usage": average_gpu_usage})
 
 PATH = './resnet50_cifar100.pth'
 torch.save(model.state_dict(), PATH)
