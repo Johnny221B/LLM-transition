@@ -88,16 +88,20 @@ def get_optimizer(optimizer_name, model_parameters, learning_rate):
 
 
 def main(args):
+    # 设置要使用的 GPU ID
+    torch.cuda.set_device(args.gpu_id)
+
+    # 记录训练开始的时间
+    start_time = time.time()
+
     # 加载数据
     trainloader, testloader, num_classes = load_data(args.data_path, args.batch_size)
 
     # 加载模型
     model = get_model(args.model, num_classes)
 
-
-
     # 选择设备：CUDA 或 CPU
-    device = torch.device("cuda" if args.use_cuda and torch.cuda.is_available() else "cpu")
+    device = torch.device(f"cuda:{args.gpu_id}" if args.use_cuda and torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
     # 定义损失函数和优化器
@@ -145,12 +149,16 @@ def main(args):
 
     print(f'Accuracy: {100 * correct / total:.2f}%')
 
+    # 记录训练结束的时间
+    end_time = time.time()
+
+    # 计算训练持续的时间
+    elapsed_time = end_time - start_time
+    print(f'Training completed in: {elapsed_time:.2f} seconds')
+
     # 创建输出文件夹
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # 保存模型
-    torch.save(model.state_dict(), f'{args.output_dir}/{args.model.split("/")[-1].split("_")[0]}_{time.strftime("%Y%m%d-%H%M%S")}.pth')
-    print(f'Model saved to {args.model.split("/")[-1].split("_")[0]}_{time.strftime("%Y%m%d-%H%M%S")}.pth')
 
 
 if __name__ == '__main__':
@@ -172,7 +180,7 @@ if __name__ == '__main__':
                         default='cross_entropy', help='使用的损失函数（默认: cross_entropy）')
     parser.add_argument('--optimizer', type=str, choices=['adam', 'sgd'],
                         default='adam', help='使用的优化器（默认: adam）')
-    parser.add_argument('--batch_size', type=int, default=2, help='训练和测试的批处理大小（默认: 2）')
+    parser.add_argument('--batch_size', type=int, default=16, help='训练和测试的批处理大小（默认: 2）')
     parser.add_argument('--learning_rate', type=float, default=0.001, help='优化器的学习率（默认: 0.001）')
     parser.add_argument('--num_epochs', type=int, default=1, help='训练的轮数（默认: 1）')
 
