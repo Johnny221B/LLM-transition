@@ -6,6 +6,7 @@ import argparse
 import datetime
 import os
 import traceback
+import time
 
 import numpy as np
 import torch
@@ -82,6 +83,7 @@ class ModelWithLoss(nn.Module):
 
 
 def train(opt):
+    start_time = time.time()
     params = Params(f'projects/{opt.project}.yml')
 
     if params.num_gpus == 0:
@@ -312,6 +314,9 @@ def train(opt):
         save_checkpoint(model, f'efficientdet-d{opt.compound_coef}_{epoch}_{step}.pth')
         writer.close()
     writer.close()
+    end_time = time.time()
+    total_time = end_time - start_time
+    print(f"Total training time: {total_time // 3600} hours {total_time % 3600 // 60} minutes {total_time % 60} seconds")
 
 
 def save_checkpoint(model, name):
