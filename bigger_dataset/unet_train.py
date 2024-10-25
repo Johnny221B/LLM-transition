@@ -156,8 +156,7 @@ def main(args):
             torch.save(save_file, "save_weights/model_{}.pth".format(epoch))
 
     total_time = time.time() - start_time
-    total_time_str = str(datetime.timedelta(seconds=int(total_time)))
-    print("training time {}".format(total_time_str))
+    print(f"Total training time: {total_time:.2f} seconds")
 
 
 def parse_args():
