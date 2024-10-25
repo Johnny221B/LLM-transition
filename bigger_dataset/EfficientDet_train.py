@@ -316,7 +316,7 @@ def train(opt):
     writer.close()
     end_time = time.time()
     total_time = end_time - start_time
-    print(f"Total training time: {total_time // 3600} hours {total_time % 3600 // 60} minutes {total_time % 60} seconds")
+    print(f"Total training time: {total_time:.2f} seconds")
 
 
 def save_checkpoint(model, name):
