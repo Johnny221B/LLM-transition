@@ -14,7 +14,7 @@
 module purge
 module load python/3.11.9
 module load cuda/12.2
-source ../../jingxuan/bin/activate
+source /work/users/l/i/linyuliu/jingxuan/jingxuan/bin/activate
 export PYTHONPATH=/work/users/l/i/linyuliu/jingxuan/lib/python3.11
 
 # 定义输出文件
