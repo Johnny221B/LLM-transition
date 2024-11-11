@@ -15,11 +15,13 @@ module purge
 module load python/3.11.9
 module load cuda/12.2
 source /work/users/l/i/linyuliu/jingxuan/jingxuan/bin/activate
-export PYTHONPATH=/work/users/l/i/linyuliu/jingxuan/lib/python3.11
+export PYTHONPATH=/work/users/l/i/linyuliu/jingxuan/lib/python3.11/site-packages:$PYTHONPATH
 
 # 定义输出文件
 output_csv="epoch_times.csv"
-echo "epoch,start_time,end_time,duration" > $output_csv
+if [ ! -f "$output_csv" ]; then
+  echo "epoch,batch_size,start_time,end_time,duration" > $output_csv
+fi
 
 # 定义epoch数组
 epochs=(10 20 30 40 50 60 70 80 90 100)  # 你可以根据需要修改这个数组
