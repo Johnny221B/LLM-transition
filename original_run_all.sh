@@ -20,7 +20,7 @@ export PYTHONPATH=/work/users/l/i/linyuliu/jingxuan/lib/python3.11/site-packages
 # 定义输出文件
 output_csv="epoch_times.csv"
 if [ ! -f "$output_csv" ]; then
-  echo "epoch,batch_size,start_time,end_time,duration" > $output_csv
+  echo "epoch,start_time,end_time,duration" > $output_csv
 fi
 
 # 定义epoch数组
@@ -29,7 +29,7 @@ epochs=(10 20 30 40 50 60 70 80 90 100)  # 你可以根据需要修改这个数�
 for epoch in "${epochs[@]}"
 do
     start_time=$(date +%s)  # 记录开始时间
-    srun python train_overnet.py --epochs $epoch
+    srun python train.py --epochs $epoch
     end_time=$(date +%s)  # 记录结束时间
     duration=$((end_time - start_time))  # 计算持续时间
     echo "$epoch,$(date -d @$start_time +'%Y-%m-%d %H:%M:%S'),$(date -d @$end_time +'%Y-%m-%d %H:%M:%S'),$duration" >> $output_csv
