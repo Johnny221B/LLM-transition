@@ -9,6 +9,8 @@ task_runtime = 2000
 # 能耗采样间隔（秒）
 sampling_interval = 1
 
+file_name = 'gan_power_usage.csv'
+
 # 定义任务列表
 tasks = [
     "python train_gan.py",
@@ -54,10 +56,10 @@ def kill_proc_tree(pid, including_parent=True):
         print(f"终止任务失败: {e}")
 
 # 打开 CSV 文件并记录任务结果
-with open('gan_power_usage.csv', 'a', newline='') as file:
+with open(file_name, 'a', newline='') as file:
     writer = csv.writer(file)
     # 如果文件为空，则写入标题行
-    if os.stat('gan_power_usage.csv').st_size == 0:
+    if os.stat(file_name).st_size == 0:
         writer.writerow(['Task Name', 'Elapsed Time (s)', 'Total Power Usage (W)'])
         file.flush()  # 确保标题行立即写入
 
