@@ -83,6 +83,7 @@ def monitor_power(task_name, runtime):
 
         print(f"任务 {task_name} 完成，累计能耗: {total_power} W\n")
         writer.writerow([task_name, total_power])
+        file.flush()
 
 if __name__ == "__main__":
     task_name = sys.argv[1]
