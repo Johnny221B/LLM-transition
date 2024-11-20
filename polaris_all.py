@@ -10,6 +10,16 @@ commands = [
     'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 150 --batch_size 16',
     'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 155 --batch_size 32',
     'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 195 --batch_size 32',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 200 --batch_size 16',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 180 --batch_size 16',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 150 --batch_size 16',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 155 --batch_size 32',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 195 --batch_size 32',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 200 --batch_size 16',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 180 --batch_size 16',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 150 --batch_size 16',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 155 --batch_size 32',
+    'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 195 --batch_size 32',
     'CUDA_VISIBLE_DEVICES=0 python train_gru.py --epochs 165 --batch_size 32'
 ]
 
