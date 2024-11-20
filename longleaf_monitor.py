@@ -3,7 +3,7 @@
 #SBATCH -n 1                
 #SBATCH -c 4                
 #SBATCH -p a100-gpu       
-#SBATCH -t 12:00:00
+#SBATCH -t 8:00:00
 #SBATCH --mem=5g            
 #SBATCH --qos=gpu_access   
 #SBATCH --gres=gpu:1       
@@ -36,7 +36,7 @@ tasks=(
 )
 
 # 任务运行时间限制（以秒为单位，3600 = 1 小时）
-task_runtime=3600
+task_runtime=1000
 
 # Python 代码：监控 GPU 能耗并保存到 CSV 文件的函数
 monitor_power_script=$(cat << 'END'
@@ -64,7 +64,7 @@ def handle_sigterm(signum, frame):
 def monitor_power(task_name, runtime):
     total_power = 0.0
     start_time = time.time()
-    with open('gan_power_usage.csv', 'a', newline='') as file:
+    with open('power_usage.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([task_name, 'Total Power Usage (W)'])
         
