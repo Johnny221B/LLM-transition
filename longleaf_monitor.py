@@ -23,16 +23,16 @@ export PYTHONPATH=/work/users/l/i/linyuliu/jingxuan/jingxuan/lib/python3.11/site
 
 # 定义任务列表（train_gan0.py, train_gan1.py, train_gan2.py 等）
 tasks=(
-    "train_gan0.py --epochs 180 --batch_size 16"
-    "train_gan1.py --epochs 155 --batch_size 32"
-    "train_gan2.py --epochs 195 --batch_size 32"
-    "train_gan3.py --epochs 200 --batch_size 16"
-    "train_gan4.py --epochs 180 --batch_size 16"
-    "train_gan5.py --epochs 155 --batch_size 32"
-    "train_gan6.py --epochs 195 --batch_size 32"
-    "train_gan7.py --epochs 200 --batch_size 16"
-    "train_gan8.py --epochs 180 --batch_size 16"
-    "train_gan9.py --epochs 155 --batch_size 32"
+    "train_gan.py --epochs 180 --batch_size 16"
+    "train_gan.py --epochs 155 --batch_size 32"
+    "train_gan.py --epochs 195 --batch_size 32"
+    "train_gan.py --epochs 200 --batch_size 16"
+    "train_gan.py --epochs 180 --batch_size 16"
+    "train_gan.py --epochs 155 --batch_size 32"
+    "train_gan.py --epochs 195 --batch_size 32"
+    "train_gan.py --epochs 200 --batch_size 16"
+    "train_gan.py --epochs 180 --batch_size 16"
+    "train_gan.py --epochs 155 --batch_size 32"
 )
 
 # 任务运行时间限制（以秒为单位，3600 = 1 小时）
